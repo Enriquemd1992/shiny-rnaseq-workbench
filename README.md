@@ -6,6 +6,24 @@ Local R Shiny application for safe, reproducible bulk RNA-seq workflows. The cur
 
 Files are read only by the local R process. The app contains no upload-to-cloud code. Never commit private matrices, metadata, FASTQ, BAM, credentials, or saved projects. The included `example_data/` files are synthetic.
 
+## Easiest installation (RStudio)
+
+Use R 4.3.x (R 4.3.2 is recommended). In the RStudio Console, run this once:
+
+```r
+source("https://raw.githubusercontent.com/Enriquemd1992/shiny-rnaseq-workbench/main/install_from_github.R")
+```
+
+The installer downloads the app to `~/shiny-rnaseq-workbench` and restores the exact package versions recorded in `renv.lock`. The first installation can take some time, especially on Windows.
+
+To start the app after installation, including in future RStudio sessions, run:
+
+```r
+source("~/shiny-rnaseq-workbench/run_app.R")
+```
+
+The command works from any RStudio working directory. The application runs locally and opens in the default browser.
+
 ## Install from Git
 
 Prerequisites: R >= 4.3, Git, and build tools where a binary R package is unavailable (Rtools on Windows, Xcode Command Line Tools on macOS, or compilers and common development libraries on Linux).
