@@ -66,12 +66,40 @@ if (!is_existing_install) {
   message("An existing installation was found; checking its R environment...")
 }
 
-old_dir <- setwd(install_dir)
-on.exit(setwd(old_dir), add = TRUE)
-
 options(repos = c(CRAN = "https://cloud.r-project.org"))
-source(file.path("renv", "activate.R"), local = FALSE)
-renv::restore(prompt = FALSE)
+if (!requireNamespace("renv", quietly = TRUE)) {
+  install.packages("renv")
+}
+
+# Restore directly into the downloaded project. This avoids changing or
+# activating any RStudio project the user may currently have open.
+project_library <- renv::paths$library(project = install_dir)
+dir.create(project_library, recursive = TRUE, showWarnings = FALSE)
+
+# If matching packages already exist elsewhere on the machine, link them into
+# the project library first. This is fast and avoids unnecessary downloads.
+# Packages that are absent or have a different locked version are then handled
+# by restore().
+lockfile <- renv::lockfile_read(file.path(install_dir, "renv.lock"))
+renv_version <- lockfile$Packages$renv$Version
+renv::install(
+  packages = paste0("renv@", renv_version),
+  project = install_dir,
+  library = project_library,
+  prompt = FALSE
+)
+renv::hydrate(
+  packages = setdiff(names(lockfile$Packages), "renv"),
+  project = install_dir,
+  library = project_library,
+  prompt = FALSE,
+  report = FALSE
+)
+renv::restore(
+  project = install_dir,
+  library = project_library,
+  prompt = FALSE
+)
 
 message("\nInstallation complete and environment restored.")
 message("App folder: ", normalizePath(install_dir, winslash = "/"))

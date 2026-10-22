@@ -11,7 +11,12 @@ if (!is.null(source_file)) {
 }
 
 activate <- file.path(app_dir, "renv", "activate.R")
-if (file.exists(activate)) source(activate, local = FALSE)
+if (file.exists(activate)) {
+  # activate.R discovers its project through RENV_PROJECT. Set it explicitly so
+  # this launcher works even when RStudio is currently in another directory.
+  Sys.setenv(RENV_PROJECT = app_dir)
+  source(activate, local = FALSE)
+}
 
 required <- c("shiny", "bslib", "DT", "readxl", "ggplot2", "scales")
 missing <- required[!vapply(required, requireNamespace, logical(1), quietly=TRUE)]
