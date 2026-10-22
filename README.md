@@ -52,4 +52,4 @@ Rscript tests/testthat.R
 
 The next milestones are correlation/distance QC heatmaps, a complete reproducibility bundle and equivalent R script, and local project persistence. Interactions, LRT, enrichment analysis, and automatic outlier removal remain out of scope for this MVP.
 
-This repository is intended for private internal evaluation. Do not commit scientific datasets, generated results, credentials, or identifying metadata.
+This public repository is intended to make the application easy to install and evaluate. Do not commit scientific datasets, generated results, credentials, or identifying metadata.
