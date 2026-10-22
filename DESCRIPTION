@@ -1,0 +1,22 @@
+Package: labrnaseqapp
+Title: Local Reproducible Bulk RNA-seq Analysis
+Version: 0.1.0
+Authors@R: person("Lab", "Team", email = "maintainer@example.org", role = c("aut", "cre"))
+Description: A local Shiny application for safe, reproducible bulk RNA-seq analysis.
+License: file LICENSE
+Encoding: UTF-8
+Imports:
+    bslib,
+    DESeq2,
+    DT,
+    ggplot2,
+    openxlsx,
+    pheatmap,
+    readxl,
+    scales,
+    shiny,
+    SummarizedExperiment
+Suggests:
+    testthat (>= 3.0.0),
+    renv
+Config/testthat/edition: 3
