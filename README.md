@@ -24,6 +24,16 @@ source("~/shiny-rnaseq-workbench/run_app.R")
 
 The command works from any RStudio working directory. The application runs locally and opens in the default browser.
 
+## Update an existing installation
+
+Close the running app, then run this command in the RStudio Console:
+
+```r
+source("https://raw.githubusercontent.com/Enriquemd1992/shiny-rnaseq-workbench/main/update_from_github.R")
+```
+
+The updater replaces only repository-managed application files, preserves additional local files, and asks `renv` to install only dependencies that differ from the new `renv.lock`. If dependencies have not changed, the update should be quick. Start the app afterwards with the usual `run_app.R` command.
+
 ## Install from Git
 
 Prerequisites: R >= 4.3, Git, and build tools where a binary R package is unavailable (Rtools on Windows, Xcode Command Line Tools on macOS, or compilers and common development libraries on Linux).
